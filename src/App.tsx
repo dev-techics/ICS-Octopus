@@ -23,7 +23,7 @@ const App: React.FC = () => {
       <Client />
       <Matter />
       <Member />
-      <Footer matter={0} member={1} />
+      <Footer />
     </main>
   );
 };
