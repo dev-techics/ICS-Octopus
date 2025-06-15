@@ -1,17 +1,33 @@
-import React from "react";
+import React, { useState } from "react";
 import matterIcon from "../assets//matter-icon.svg";
 import GroupButton from "./ui/GroupButton";
 import { useAppContext } from "../context/AppContext";
 import { stripHtml } from "../utils/filter";
+import { updateLog } from "../api/api";
 
 const Matter: React.FC = () => {
-  const { matters } = useAppContext();
+  const [isSaved, setSaved] = useState<boolean>(false);
+  const { clientInfo, matters } = useAppContext();
+
   const serverUrl = import.meta.env.VITE_SERVER_URL;
+  const userId = import.meta.env.VITE_USER_ID;
 
   // open matter
   const openMatter = (matterId: number) => {
     const URL = serverUrl + "add_edit_case.php?caseid=" + matterId;
     chrome.tabs.create({ url: URL });
+  };
+
+  // update matter
+  const updateActivityLog = async (matterId: number, priority: string = "") => {
+    const response = await updateLog({
+      userId: userId,
+      matterId: matterId,
+      activityLog: clientInfo.activityLog,
+      priority: priority,
+    });
+    if (response.status === "error") return;
+    setSaved(true);
   };
 
   return (
@@ -48,14 +64,16 @@ const Matter: React.FC = () => {
             </div>
 
             <GroupButton
+              classes="mr-2"
               hidden={false}
-              disabled={false}
+              disabled={isSaved}
               disabledText="Updated"
               firstButtonText="Update"
               secondButtonText="Update & Priority"
-              classes="mr-2"
-              firstButtonClick={() => {}}
-              secondButtonClick={() => {}}
+              firstButtonClick={() => updateActivityLog(matter.caseid)}
+              secondButtonClick={() => {
+                updateActivityLog(matter.caseid, "high");
+              }}
             />
           </div>
         ))}

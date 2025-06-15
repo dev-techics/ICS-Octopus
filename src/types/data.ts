@@ -14,10 +14,17 @@ export interface Matter {
   fkclientid: string;
 }
 
-export interface ScrapedResponse {
+export interface ServerResponse {
   status: "success" | "error";
   members?: Member[];
   matters?: Matter[];
   email?: string;
   message?: string;
+}
+
+export interface LogRequestType {
+  userId: number;
+  matterId: number;
+  activityLog: string;
+  priority: string;
 }

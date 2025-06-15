@@ -17,8 +17,22 @@ const Client: React.FC = () => {
 
   // create new matter
   const createMatter = (priority: string = "") => {
-    console.log("New Matter Created");
-    console.log(priority);
+    console.log({
+      website: "https://example.com",
+      owner_id: "113",
+      fname: "John",
+      lname: "Doe",
+      email: "john.doe@example.com",
+      mobile: "1234567890",
+      matter_type: "Legal Consultation",
+      service_type: "Immigration",
+      matter_title: "Immigration Enquiry",
+      matter_details: "Client seeking assistance with visa application.",
+      advertise: "Google Ads",
+      sources: "Online Search",
+      activity_log: "Initial enquiry logged via web form.",
+      priority: "Medium",
+    });
   };
 
   return (
@@ -37,6 +51,7 @@ const Client: React.FC = () => {
             </p>
           </div>
         </div>
+
         <GroupButton
           hidden={existEmail}
           disabled={isMember}
