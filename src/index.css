@@ -1,1 +1,128 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
 @import "tailwindcss";
+
+@theme {
+  --color-primary: #101635;
+  --color-avatar: #26848E;
+}
+
+@layer base {
+  [data-theme="light"] {
+    --color-primary: #101635;
+    --color-avatar: #26848E;
+  }
+}
+
+
+body{
+   font-family: "Inter", sans-serif;
+   color: var(--color-primary);
+}
+
+
+/* -------------------------------------------- */
+.button_group, .matter_button_group {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: absolute;
+  right: 0;
+  padding-left: 1rem;
+  gap: 1px;
+  height: 5rem;
+}
+.matter_button_group{
+  display: flex;
+  background-color: transparent;
+  top: -0.8rem;
+}
+
+.button_group button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 25px;
+  border: none;
+  background-color: #26848e;
+  color: white;
+  transition: width 0.3s, background-color 0.3s ease;
+}
+
+.button_group.disabled button,
+.button_group button:disabled {
+  pointer-events: none;
+  cursor: not-allowed;
+  background-color: #dddddd;
+  color: #afafaf;
+}
+
+.button_group button:hover {
+  background-color: #1f6b7a;
+}
+
+.button_group button p {
+  white-space: nowrap;
+}
+
+.button_group button img {
+  width: 10px;
+  height: 10px;
+}
+
+/* Left Button */
+.button_group .left_button {
+  transition: width 0.3s;
+  padding: 0px 10px;
+  border-radius: 5px 0 0 5px;
+}
+
+.button_group .left_button img {
+  display: none;
+  rotate: -90deg;
+}
+
+/* Right Button */
+.button_group .right_button {
+  width: 20px;
+  border-radius: 0 5px 5px 0;
+  transition: width 0.3s;
+}
+
+.button_group .right_button img {
+  rotate: 90deg;
+}
+
+.button_group .right_button p {
+  display: none;
+}
+
+.button_group .right_button:hover {
+  width: 120px;
+}
+
+.button_group .right_button:hover img {
+  display: none;
+}
+
+.button_group .right_button:hover p {
+  display: block;
+}
+
+/* Hover effect on left button when right button is hovered */
+.button_group:has(.right_button:hover) .left_button {
+  padding: 5px;
+}
+
+.button_group:has(.right_button:hover) .left_button p {
+  display: none;
+}
+
+.button_group:has(.right_button:hover) .left_button img {
+  display: block;
+}
+
+/* Disabled Right Button */
+.button_group.disabled .right_button {
+  background-color: #dddddd;
+  color: #afafaf;
+}

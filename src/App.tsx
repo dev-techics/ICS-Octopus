@@ -1,7 +1,31 @@
-import "./App.css";
+import React, { useEffect } from "react";
+import startScraping from "./utils/scraper";
+import checkRecord from "./utils/checkRecord";
+import Header from "./components/Header";
+import Client from "./components/Client";
+import Matter from "./components/Matter";
+import Footer from "./components/Footer";
+import Member from "./components/Member";
+import { useAppContext } from "./context/AppContext";
 
-function App() {
-  return <>hello world</>;
-}
+const App: React.FC = () => {
+  const { clientInfo } = useAppContext();
+
+  // scraping & checking
+  useEffect(() => startScraping(), []);
+  useEffect(() => {
+    clientInfo.email && checkRecord(clientInfo);
+  }, [clientInfo]);
+
+  return (
+    <main className="w-[450px]">
+      <Header />
+      <Client />
+      <Matter />
+      <Member />
+      <Footer matter={0} member={1} />
+    </main>
+  );
+};
 
 export default App;

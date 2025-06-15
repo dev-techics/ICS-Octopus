@@ -4,11 +4,12 @@
   "name": "Extension Rebuild",
   "description": "Extension Rebuild",
   "permissions": ["tabs", "activeTab", "storage"],
+  "host_permissions": ["<all_urls>"],
   "action": {
     "default_popup": "index.html"
   },
   "background": {
-    "service_worker": "service-worker-loader.js",
+    "service_worker": "src/background.ts",
     "type": "module"
   },
   "content_scripts": [
