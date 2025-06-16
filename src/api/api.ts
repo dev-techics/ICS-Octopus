@@ -1,6 +1,10 @@
 // src/utils/api.ts
 import axiosInstance from "./axios";
-import type { LogRequestType, ServerResponse } from "../types/data";
+import type {
+  LogRequestType,
+  SaveRequestType,
+  ServerResponse,
+} from "../types/data";
 import type { CheckParametersType } from "../types/type";
 
 // Get all data
@@ -14,8 +18,12 @@ export const loadData = async (
 };
 
 // Save scraped data
-export const saveMatter = async (data: ServerResponse) => {
-  const response = await axiosInstance.post("/save", data);
+export const saveMatter = async (data: SaveRequestType) => {
+  console.log("Data is ", data);
+  const response = await axiosInstance.post(
+    "ics-extension-matter-save.php",
+    data
+  );
   return response.data;
 };
 

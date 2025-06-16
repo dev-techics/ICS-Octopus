@@ -9,13 +9,13 @@ import Member from "./components/Member";
 import { useAppContext } from "./context/AppContext";
 
 const App: React.FC = () => {
-  const { clientInfo } = useAppContext();
+  const { clientInfo, saved } = useAppContext();
 
   // scraping & checking
   useEffect(() => startScraping(), []);
   useEffect(() => {
     clientInfo.email && checkRecord(clientInfo);
-  }, [clientInfo]);
+  }, [clientInfo, saved]);
 
   return (
     <main className="w-[450px]">

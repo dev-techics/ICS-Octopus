@@ -8,7 +8,7 @@ const Matter: React.FC = () => {
   const { members } = useAppContext();
 
   return (
-    <section className="px-2 pt-4">
+    <section className={`px-2 ${members.length ? "pt-4" : "pt-2"}`}>
       <h3 className="text text-gray-500 px-2">
         {members.length === 0
           ? "No member found for this leads."
@@ -18,7 +18,10 @@ const Matter: React.FC = () => {
       </h3>
       <div>
         {members.map((member, index) => (
-          <div className="flex items-center justify-between mt-1 hover:bg-gray-100/80 transition cursor-pointer rounded-md px-2">
+          <div
+            key={index}
+            className="flex items-center justify-between mt-1 hover:bg-gray-100/80 transition cursor-pointer rounded-md px-2"
+          >
             <div className="flex gap-3 py-2">
               <img
                 className="h-10 w-10 rounded-full border border-slate-200"

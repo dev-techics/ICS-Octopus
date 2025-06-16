@@ -2,11 +2,12 @@ import type { ReactNode } from "react";
 
 export interface GroupButtonProps {
   hidden: boolean;
+  classes?: string;
+  loading: boolean;
   disabled: boolean;
   disabledText: string;
   firstButtonText: string;
   secondButtonText: string;
-  classes?: string;
   firstButtonClick: () => void;
   secondButtonClick: () => void;
 }
@@ -19,8 +20,12 @@ export interface ClientInfoType {
   name: string;
   mobile: string;
   email: string;
+  matterType: string;
   matterTitle: string;
+  matterDesc: string;
   activityLog: string;
+  advertise: string;
+  sources: string;
 }
 
 export interface CheckParametersType {

@@ -9,6 +9,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   if (request.action === "START_SCRAPING") {
     const data = scrapeApplyToSupply();
     sendResponse({ data });
+    console.log(sender);
   }
   return true;
 });

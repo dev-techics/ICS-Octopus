@@ -4,15 +4,18 @@ import type { Matter, Member } from "../types/data";
 
 // type declaration
 interface AppContextType {
-  // client information
+  loading: boolean;
+  setLoading: React.Dispatch<React.SetStateAction<boolean>>;
+
+  saved: boolean;
+  setSaved: React.Dispatch<React.SetStateAction<boolean>>;
+
   clientInfo: ClientInfoType;
   setClientInfo: React.Dispatch<React.SetStateAction<ClientInfoType>>;
 
-  // matter information
   matters: Matter[];
   setMatters: React.Dispatch<React.SetStateAction<Matter[]>>;
 
-  // member information
   members: Member[];
   setMembers: React.Dispatch<React.SetStateAction<Member[]>>;
 }
@@ -32,14 +35,20 @@ let externalSetMembers: React.Dispatch<React.SetStateAction<Member[]>> | null =
 const AppContext = createContext<AppContextType | undefined>(undefined);
 export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
   // states
+  const [loading, setLoading] = useState<boolean>(false);
+  const [saved, setSaved] = useState<boolean>(false);
   const [matters, setMatters] = useState<Matter[]>([]);
   const [members, setMembers] = useState<Member[]>([]);
   const [clientInfo, setClientInfo] = useState<ClientInfoType>({
     name: "",
     mobile: "",
     email: "",
+    matterType: "",
     matterTitle: "",
+    matterDesc: "",
     activityLog: "",
+    advertise: "",
+    sources: "",
   });
 
   // assign to global
@@ -50,6 +59,10 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
   return (
     <AppContext.Provider
       value={{
+        loading,
+        setLoading,
+        saved,
+        setSaved,
         clientInfo,
         setClientInfo,
         matters,

@@ -28,3 +28,21 @@ export interface LogRequestType {
   activityLog: string;
   priority: string;
 }
+
+export interface SaveRequestType {
+  userId: number;
+  website: string;
+  fname: string;
+  lname: string;
+  email: string;
+  mobile: string;
+
+  matterType: string;
+  matterTitle: string;
+  matterDesc: string;
+  advertise: string;
+  sources: string;
+
+  priority: string;
+  activityLog: string;
+}

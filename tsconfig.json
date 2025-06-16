@@ -1,4 +1,11 @@
 {
+  "compilerOptions": {
+    "module": "ESNext", // or "CommonJS"
+    "target": "ES2020", // or any other target
+    "esModuleInterop": true, // Ensure this is set to true
+    "allowSyntheticDefaultImports": true, // Also make sure this is true
+    "jsx": "react-jsx" // If you're using React 17+ JSX Transform
+  },
   "files": [],
   "references": [
     { "path": "./tsconfig.app.json" },

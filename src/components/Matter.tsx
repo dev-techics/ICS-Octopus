@@ -6,6 +6,9 @@ import { stripHtml } from "../utils/filter";
 import { updateLog } from "../api/api";
 
 const Matter: React.FC = () => {
+  const [loadingStates, setLoadingStates] = useState<{
+    [key: number]: boolean;
+  }>({});
   const [isSaved, setSaved] = useState<boolean>(false);
   const { clientInfo, matters } = useAppContext();
 
@@ -20,14 +23,27 @@ const Matter: React.FC = () => {
 
   // update matter
   const updateActivityLog = async (matterId: number, priority: string = "") => {
+    // Set loading for this specific matter to true
+    setLoadingStates((prevState) => ({
+      ...prevState,
+      [matterId]: true,
+    }));
+
     const response = await updateLog({
       userId: userId,
       matterId: matterId,
       activityLog: clientInfo.activityLog,
       priority: priority,
     });
+
     if (response.status === "error") return;
+
+    // update states
     setSaved(true);
+    setLoadingStates((prevState) => ({
+      ...prevState,
+      [matterId]: false,
+    }));
   };
 
   return (
@@ -66,6 +82,7 @@ const Matter: React.FC = () => {
             <GroupButton
               classes="mr-2"
               hidden={false}
+              loading={loadingStates[matter.caseid] || false}
               disabled={isSaved}
               disabledText="Updated"
               firstButtonText="Update"

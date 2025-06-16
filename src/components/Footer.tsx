@@ -1,7 +1,7 @@
 import React from "react";
 import { useAppContext } from "../context/AppContext";
 
-const Footer: React.FC = (props) => {
+const Footer: React.FC = () => {
   const { matters, members } = useAppContext();
   const totalMatters = matters.length;
   const totalMembers = members.length;

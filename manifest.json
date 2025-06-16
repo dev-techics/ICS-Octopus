@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
   "version": "1.0.0",
-  "name": "Extension Rebuild",
-  "description": "Extension Rebuild",
+  "name": "ICS Octopus",
+  "description": "Collect Leads from your favorite website.",
   "permissions": ["tabs", "activeTab", "storage"],
   "host_permissions": ["<all_urls>"],
   "action": {
@@ -15,7 +15,9 @@
   "content_scripts": [
     {
       "js": ["src/content-scripts/ApplyToSupply.tsx"],
-      "matches": ["https://www.applytosupply.digitalmarketplace.service.gov.uk/*"]
+      "matches": [
+        "https://www.applytosupply.digitalmarketplace.service.gov.uk/*"
+      ]
     }
   ]
 }

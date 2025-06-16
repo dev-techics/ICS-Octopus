@@ -1,38 +1,52 @@
-import React, { use } from "react";
+import React from "react";
 import GroupButton from "./ui/GroupButton";
 import { useAppContext } from "../context/AppContext";
+import { getMobile, getName, getPlatformName } from "../utils/filter";
+import { saveMatter } from "../api/api";
 
 const Client: React.FC = () => {
-  const { clientInfo } = useAppContext();
-  const { members } = useAppContext();
+  const { clientInfo, members, saved, setSaved, loading, setLoading } =
+    useAppContext();
 
   // variable for button group
-  let isMember = false;
   let existEmail = !clientInfo.email ? true : false;
   members.forEach((member) => {
     if (member.email === clientInfo.email) {
-      isMember = true;
+      if (!saved) setSaved(true);
     }
   });
 
   // create new matter
-  const createMatter = (priority: string = "") => {
-    console.log({
-      website: "https://example.com",
-      owner_id: "113",
-      fname: "John",
-      lname: "Doe",
-      email: "john.doe@example.com",
-      mobile: "1234567890",
-      matter_type: "Legal Consultation",
-      service_type: "Immigration",
-      matter_title: "Immigration Enquiry",
-      matter_details: "Client seeking assistance with visa application.",
-      advertise: "Google Ads",
-      sources: "Online Search",
-      activity_log: "Initial enquiry logged via web form.",
-      priority: "Medium",
-    });
+  const createMatter = async (priority: string = "") => {
+    const userId = import.meta.env.VITE_USER_ID;
+    const platform = await getPlatformName();
+    const [fname, lname] = getName(clientInfo.name);
+    const mobile = getMobile(clientInfo.mobile);
+
+    try {
+      const response = await saveMatter({
+        userId: userId,
+        website: platform,
+        fname: fname,
+        lname: lname,
+        email: clientInfo.email,
+        mobile: mobile,
+        matterType: clientInfo.matterType,
+        matterTitle: clientInfo.matterTitle,
+        matterDesc: clientInfo.matterDesc,
+        advertise: clientInfo.advertise,
+        sources: clientInfo.sources,
+        priority: priority,
+        activityLog: clientInfo.activityLog,
+      });
+      console.log(response);
+      if (response.status === "error") return;
+      if (response.status === "success") setSaved(true);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -51,14 +65,14 @@ const Client: React.FC = () => {
             </p>
           </div>
         </div>
-
         <GroupButton
+          loading={loading}
+          disabled={saved}
           hidden={existEmail}
-          disabled={isMember}
           disabledText="Saved"
           firstButtonText="Save"
           secondButtonText="Save & Priority"
-          firstButtonClick={createMatter}
+          firstButtonClick={() => createMatter()}
           secondButtonClick={() => createMatter("high")}
         />
       </div>

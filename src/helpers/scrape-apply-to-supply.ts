@@ -16,14 +16,13 @@ const getContactInfo = (): string[] => {
       const contactBlock = heading.nextElementSibling;
 
       if (contactBlock) {
+        let textItems: string[] = [];
+
         contactBlock.childNodes.forEach((node) => {
-          if (node.nodeType === Node.TEXT_NODE) {
-            const text = (node.textContent || "").trim();
-            if (text && !name) {
-              name = text;
-            } else if (text.startsWith("+")) {
-              mobile = text;
-            }
+          const text = (node.textContent || "").trim();
+
+          if (node.nodeType === Node.TEXT_NODE && text) {
+            textItems.push(text);
           } else if (
             node.nodeType === Node.ELEMENT_NODE &&
             (node as HTMLElement).tagName === "A"
@@ -34,6 +33,10 @@ const getContactInfo = (): string[] => {
             }
           }
         });
+
+        // Use position-based logic
+        if (textItems.length >= 1) name = textItems[0];
+        if (textItems.length >= 2) mobile = textItems[1]; // assume 2nd is mobile
       }
     }
   });
@@ -43,19 +46,32 @@ const getContactInfo = (): string[] => {
 
 // get activity log
 const getActivityLog = () => {
-  return document.querySelectorAll(".govuk-body")[3].textContent || "";
+  const elements = document.querySelectorAll(".govuk-body");
+  return elements[3]?.innerHTML || "";
+};
+
+const getWebsite = () => {
+  return window.location.href;
 };
 
 // return client information
 export default () => {
   const [name, mobile, email] = getContactInfo();
-  const matterTitle = getMatterTitle();
   const activityLog = getActivityLog();
+  const matterType = "Consultation";
+  const matterTitle = getMatterTitle();
+  const matterDesc = getWebsite();
+  const advertise = "Google";
+  const sources = "GOV.UK";
   return {
     name,
     mobile,
     email,
+    matterType,
     matterTitle,
+    matterDesc,
     activityLog,
+    advertise,
+    sources,
   };
 };

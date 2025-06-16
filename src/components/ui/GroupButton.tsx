@@ -1,10 +1,12 @@
 import React from "react";
 import arrow from "../../assets/icon-arrow-down.svg";
 import type { GroupButtonProps } from "../../types/type";
+import { BarLoader } from "react-spinners";
 
 const GroupButton: React.FC<GroupButtonProps> = (props) => {
   const {
     hidden,
+    loading,
     disabled,
     disabledText,
     firstButtonText,
@@ -26,7 +28,15 @@ const GroupButton: React.FC<GroupButtonProps> = (props) => {
         id="saveMatter"
       >
         <img className="arrow" src={arrow} alt="" />
-        <p>{disabled ? disabledText : firstButtonText}</p>
+        <p>
+          {loading ? (
+            <BarLoader width={40} color="#26848E" />
+          ) : disabled ? (
+            disabledText
+          ) : (
+            firstButtonText
+          )}
+        </p>
       </button>
 
       <button
