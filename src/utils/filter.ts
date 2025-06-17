@@ -37,7 +37,6 @@ export const getPlatformName = async (): Promise<string> => {
       chrome.tabs.query({ active: true, currentWindow: true }, resolve);
     });
 
-    // get url
     const url = tabs[0]?.url;
     if (!url) return "Unknown";
 
@@ -48,7 +47,12 @@ export const getPlatformName = async (): Promise<string> => {
         platform = "applytosupply";
         break;
 
+      case "www.bark.com":
+        platform = "bark";
+        break;
+
       default:
+        platform = "";
         break;
     }
 

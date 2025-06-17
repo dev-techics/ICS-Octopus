@@ -14,10 +14,18 @@
   },
   "content_scripts": [
     {
-      "js": ["src/content-scripts/ApplyToSupply.tsx"],
+      "js": ["src/content-scripts/apply-to-supply.tsx"],
       "matches": [
         "https://www.applytosupply.digitalmarketplace.service.gov.uk/*"
       ]
+    },
+    {
+      "js": ["src/content-scripts/bark.tsx"],
+      "matches": ["https://www.bark.com/*"]
+    },
+    {
+      "js": ["src/content-scripts/linkedin.tsx"],
+      "matches": ["https://www.linkedin.com/*"]
     }
   ]
 }

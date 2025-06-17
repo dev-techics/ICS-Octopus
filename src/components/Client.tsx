@@ -8,8 +8,12 @@ const Client: React.FC = () => {
   const { clientInfo, members, saved, setSaved, loading, setLoading } =
     useAppContext();
 
-  // variable for button group
-  let existEmail = !clientInfo.email ? true : false;
+  // hide group button
+  let existEmail = () => {
+    return !clientInfo.email || clientInfo.email.includes("*");
+  };
+
+  // show saved
   members.forEach((member) => {
     if (member.email === clientInfo.email) {
       if (!saved) setSaved(true);
@@ -68,7 +72,7 @@ const Client: React.FC = () => {
         <GroupButton
           loading={loading}
           disabled={saved}
-          hidden={existEmail}
+          hidden={existEmail()}
           disabledText="Saved"
           firstButtonText="Save"
           secondButtonText="Save & Priority"
