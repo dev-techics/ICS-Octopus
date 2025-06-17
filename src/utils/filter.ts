@@ -42,6 +42,8 @@ export const getPlatformName = async (): Promise<string> => {
 
     // get platform address
     let platform = url.split("/")[2];
+    console.log(platform);
+
     switch (platform) {
       case "www.applytosupply.digitalmarketplace.service.gov.uk":
         platform = "applytosupply";
@@ -49,6 +51,10 @@ export const getPlatformName = async (): Promise<string> => {
 
       case "www.bark.com":
         platform = "bark";
+        break;
+
+      case "app.dosfinds.co.uk":
+        platform = "dos";
         break;
 
       default:

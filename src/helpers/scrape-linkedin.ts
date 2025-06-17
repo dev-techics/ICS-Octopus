@@ -1,3 +1,4 @@
+const delay = (ms: number) => new Promise((res) => setTimeout(res, ms));
 const dataArray: string[] = [];
 
 const openModal = () => {
@@ -57,26 +58,30 @@ const getMatterDesc = () => {
 
 const getActivity = () => {
   let expriences = "";
-  // const containers = document.querySelectorAll(".artdeco-card");
-  // const exprienceContainer = Array.from(containers).find((section) => {
-  //   const titleElement = section.querySelector("h2")?.querySelector("span");
-  //   const title = titleElement?.textContent?.trim();
-  //   return title === "Experience";
-  // });
+  const containers = document.querySelectorAll(".artdeco-card");
+  console.log(containers);
+  const exprienceContainer = Array.from(containers).find((section) => {
+    const titleElement = section.querySelector("h2")?.querySelector("span");
+    const title = titleElement?.textContent?.trim();
+    return title === "Experience";
+  });
 
-  // if (exprienceContainer) {
-  //   exprienceContainer // clcik on more button
-  //     .querySelector<HTMLElement>("#navigation-index-see-all-experiences")
-  //     ?.click();
+  if (exprienceContainer) {
+    exprienceContainer // clcik on more button
+      .querySelector<HTMLElement>("#navigation-index-see-all-experiences")
+      ?.click();
 
-  //   // add data into the vaiable
-  //   const data = exprienceContainer.querySelectorAll(".visually-hidden");
-  //   data.forEach((item) => {
-  //     dataArray.push(item.textContent?.trim() || "");
-  //     expriences += item.textContent + "<br>";
-  //   });
-  // }
+    // add data into the vaiable
+    const data = exprienceContainer.querySelectorAll(".visually-hidden");
+    data.forEach((item) => {
+      dataArray.push(item.textContent?.trim() || "");
+      expriences += item.textContent + "<br>";
+    });
+  }
 
+  const backButton =
+    document.querySelector<HTMLButtonElement>(".artdeco-button--3");
+  backButton?.click();
   return expriences;
 };
 
@@ -90,38 +95,15 @@ const getTitle = () => {
 
 export default () => {
   openModal();
-  // const loader = document.querySelector(".artdeco-loader__bars");
-
-  // const activityLog = getActivity();
-  // const name = getName();
-  // const email = getEmail();
-  // const mobile = getMobile();
-  // const matterType = "General Enquery";
-  // const matterDesc = getMatterDesc();
-  // const matterTitle = getTitle();
-  // const advertise = "Linkedin";
-  // const sources = "Linkedin";
-  // return {
-  //   name,
-  //   mobile,
-  //   email,
-  //   matterType,
-  //   matterTitle,
-  //   matterDesc,
-  //   activityLog,
-  //   advertise,
-  //   sources,
-  // };
-
-  const activityLog = "";
-  const name = "";
-  const email = "";
-  const mobile = "";
-  const matterType = "";
-  const matterDesc = "";
-  const matterTitle = "";
-  const advertise = "";
-  const sources = "";
+  const name = getName();
+  const email = getEmail();
+  const mobile = getMobile();
+  const matterType = "General Enquery";
+  const matterDesc = getMatterDesc();
+  const matterTitle = getTitle();
+  const advertise = "Linkedin";
+  const sources = "Linkedin";
+  const activityLog = getActivity();
   return {
     name,
     mobile,
@@ -133,4 +115,27 @@ export default () => {
     advertise,
     sources,
   };
+
+  // empty data for testing
+  //---------------------------------
+  // const activityLog = "";
+  // const name = "";
+  // const email = "";
+  // const mobile = "";
+  // const matterType = "";
+  // const matterDesc = "";
+  // const matterTitle = "";
+  // const advertise = "";
+  // const sources = "";
+  // return {
+  //   name,
+  //   mobile,
+  //   email,
+  //   matterType,
+  //   matterTitle,
+  //   matterDesc,
+  //   activityLog,
+  //   advertise,
+  //   sources,
+  // };
 };

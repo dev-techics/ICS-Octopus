@@ -26,6 +26,10 @@
     {
       "js": ["src/content-scripts/linkedin.tsx"],
       "matches": ["https://www.linkedin.com/*"]
+    },
+    {
+      "js": ["src/content-scripts/dos.tsx"],
+      "matches": ["https://app.dosfinds.co.uk/*"]
     }
   ]
 }
