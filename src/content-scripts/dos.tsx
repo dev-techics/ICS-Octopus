@@ -1,4 +1,4 @@
-import scrapDos from "../helpers/dos";
+import scrapDos from "../scrapers/scrape-dos";
 
 // start scraping
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {

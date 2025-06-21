@@ -30,7 +30,7 @@ export const saveMatter = async (data: SaveRequestType) => {
 // update activity log
 export const updateLog = async (data: LogRequestType) => {
   const response = await axiosInstance.post(
-    "/ics-extension-update-activity.php",
+    "ics-extension-update-activity.php",
     data
   );
   return response.data;

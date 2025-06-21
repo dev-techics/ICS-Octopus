@@ -1,4 +1,4 @@
-import scrapBark from "../helpers/scrape-bark";
+import scrapBark from "../scrapers/scrape-bark";
 
 // start scraping
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {

@@ -1,10 +1,16 @@
-import scrapLinkedin from "../helpers/scrape-linkedin";
+import scrapLinkedin from "../scrapers/scrape-linkedin";
 
-// start scraping
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   if (request.action === "START_SCRAPING") {
-    const data = scrapLinkedin();
-    sendResponse({ data });
+    scrapLinkedin()
+      .then((data) => {
+        sendResponse({ data }); // send result when promise resolves
+      })
+      .catch((error) => {
+        console.error("Scraping failed:", error);
+        sendResponse({ error: "Scraping failed" });
+      });
+
+    return true; // 🔒 Keeps the message channel open for async response
   }
-  return true;
 });

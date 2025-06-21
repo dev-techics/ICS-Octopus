@@ -12,7 +12,16 @@ const App: React.FC = () => {
   const { clientInfo, saved } = useAppContext();
 
   // scraping & checking
-  useEffect(() => startScraping(), []);
+  useEffect(() => {
+    const scrape = async () => {
+      try {
+        await startScraping();
+      } catch (err) {
+        console.error("Scraping failed:", err);
+      }
+    };
+    scrape();
+  }, []);
   useEffect(() => {
     clientInfo.email && checkRecord(clientInfo);
   }, [clientInfo, saved]);

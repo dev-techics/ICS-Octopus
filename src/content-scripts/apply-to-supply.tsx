@@ -2,7 +2,7 @@
   CONTENT SCRIPT
 ------------------------------------------*/
 import { createRoot } from "react-dom/client";
-import scrapeApplyToSupply from "../helpers/scrape-apply-to-supply";
+import scrapeApplyToSupply from "../scrapers/scrape-apply-to-supply";
 
 // start scraping
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {

@@ -1,18 +1,15 @@
-const delay = (ms: number) => new Promise((res) => setTimeout(res, ms));
-const dataArray: string[] = [];
-
 const openModal = () => {
   const contactModalId = "#top-card-text-details-contact-info";
   const contactModal = document.querySelector<HTMLElement>(contactModalId);
   contactModal?.click();
 };
 
-const closeModal = () => {
-  const closeButton = document.querySelector<HTMLElement>(
-    "button[data-test-modal-close-btn]"
-  );
-  closeButton?.click();
-};
+// const closeModal = () => {
+//   const closeButton = document.querySelector<HTMLElement>(
+//     "button[data-test-modal-close-btn]"
+//   );
+//   closeButton?.click();
+// };
 
 const getName = () => {
   const element = document.querySelector("h1");
@@ -36,8 +33,8 @@ const getMobile = () => {
   });
 
   const dataElement = mobileElement?.querySelector("span");
-  const data = dataElement?.textContent?.trim() || "";
-  return data;
+  const mobile = dataElement?.textContent?.trim() || "";
+  return mobile;
 };
 
 const getMatterDesc = () => {
@@ -48,62 +45,45 @@ const getMatterDesc = () => {
     const heading = infoElement.querySelector("h3")?.textContent?.trim();
     const valueElement = infoElement.querySelector("a, span");
     const value = valueElement?.textContent?.trim();
-
     if (heading && value) {
       matterDesc += `<b>${heading}</b>: ${value} <br>`;
     }
   });
+
   return matterDesc;
 };
 
 const getActivity = () => {
   let expriences = "";
   const containers = document.querySelectorAll(".artdeco-card");
-  console.log(containers);
   const exprienceContainer = Array.from(containers).find((section) => {
     const titleElement = section.querySelector("h2")?.querySelector("span");
     const title = titleElement?.textContent?.trim();
     return title === "Experience";
   });
-
-  if (exprienceContainer) {
-    exprienceContainer // clcik on more button
-      .querySelector<HTMLElement>("#navigation-index-see-all-experiences")
-      ?.click();
-
-    // add data into the vaiable
-    const data = exprienceContainer.querySelectorAll(".visually-hidden");
-    data.forEach((item) => {
-      dataArray.push(item.textContent?.trim() || "");
-      expriences += item.textContent + "<br>";
-    });
-  }
+  const data = exprienceContainer?.querySelectorAll(".visually-hidden");
+  data?.forEach((item) => {
+    expriences += item.textContent + "<br>";
+  });
 
   const backButton =
     document.querySelector<HTMLButtonElement>(".artdeco-button--3");
   backButton?.click();
+
   return expriences;
 };
 
-const getCompanyName = () => {
-  return dataArray[1];
-};
-
-const getTitle = () => {
-  return `[ HR Director @ ${getCompanyName()}`;
-};
-
 export default () => {
-  openModal();
-  const name = getName();
-  const email = getEmail();
-  const mobile = getMobile();
-  const matterType = "General Enquery";
-  const matterDesc = getMatterDesc();
-  const matterTitle = getTitle();
-  const advertise = "Linkedin";
-  const sources = "Linkedin";
-  const activityLog = getActivity();
+  let name = getName();
+  let email = getEmail();
+  let mobile = getMobile();
+  let matterType = "Consultation";
+  let matterDesc = getMatterDesc();
+  let activityLog = getActivity();
+  let matterTitle = "";
+  let advertise = "";
+  let sources = "";
+
   return {
     name,
     mobile,
@@ -115,27 +95,4 @@ export default () => {
     advertise,
     sources,
   };
-
-  // empty data for testing
-  //---------------------------------
-  // const activityLog = "";
-  // const name = "";
-  // const email = "";
-  // const mobile = "";
-  // const matterType = "";
-  // const matterDesc = "";
-  // const matterTitle = "";
-  // const advertise = "";
-  // const sources = "";
-  // return {
-  //   name,
-  //   mobile,
-  //   email,
-  //   matterType,
-  //   matterTitle,
-  //   matterDesc,
-  //   activityLog,
-  //   advertise,
-  //   sources,
-  // };
 };
