@@ -12,6 +12,12 @@
     "service_worker": "src/background.ts",
     "type": "module"
   },
+  "icons": {
+    "16": "public/extension-logo.png",
+    "32": "public/extension-logo.png",
+    "48": "public/extension-logo.png",
+    "128": "public/extension-logo.png"
+  },
   "content_scripts": [
     {
       "js": ["src/content-scripts/apply-to-supply.tsx"],

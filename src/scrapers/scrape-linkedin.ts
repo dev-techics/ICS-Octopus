@@ -4,21 +4,24 @@ const openModal = () => {
   contactModal?.click();
 };
 
-// const closeModal = () => {
-//   const closeButton = document.querySelector<HTMLElement>(
-//     "button[data-test-modal-close-btn]"
-//   );
-//   closeButton?.click();
-// };
+const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
 const getName = () => {
   const element = document.querySelector("h1");
   return (element && element.textContent?.trim()) || "";
 };
 
+const getTitle = () => {
+  const card = document.querySelector(".artdeco-card");
+  if (!card) return "";
+
+  const titleElement = card.querySelector(".text-body-medium.break-words");
+  return "[ Linkedin ] " + titleElement?.textContent?.trim() || "";
+};
+
 const getEmail = () => {
-  // prettier-ignore
-  const element = document.querySelector<HTMLAnchorElement>('a[href^="mailto:"]');
+  const element =
+    document.querySelector<HTMLAnchorElement>('a[href^="mailto:"]');
   if (element && element.href) {
     const email = element.href.replace(/^mailto:/, "").trim();
     return email;
@@ -53,36 +56,43 @@ const getMatterDesc = () => {
   return matterDesc;
 };
 
-const getActivity = () => {
-  let expriences = "";
+const getActivity = async () => {
+  let experiences = "";
   const containers = document.querySelectorAll(".artdeco-card");
-  const exprienceContainer = Array.from(containers).find((section) => {
-    const titleElement = section.querySelector("h2")?.querySelector("span");
+  const experienceContainer = Array.from(containers).find((section) => {
+    const titleElement = section.querySelector("h2 span");
     const title = titleElement?.textContent?.trim();
     return title === "Experience";
   });
-  const data = exprienceContainer?.querySelectorAll(".visually-hidden");
+
+  // experienceContainer
+  //   ?.querySelector<HTMLButtonElement>(".artdeco-button")
+  //   ?.click();
+
+  const data = experienceContainer?.querySelectorAll(".visually-hidden");
   data?.forEach((item) => {
-    expriences += item.textContent + "<br>";
+    experiences += item.textContent + "<br>";
   });
 
-  const backButton =
-    document.querySelector<HTMLButtonElement>(".artdeco-button--3");
-  backButton?.click();
+  // const backButton =
+  //   document.querySelector<HTMLButtonElement>(".artdeco-button--3");
+  // backButton?.click();
 
-  return expriences;
+  return experiences;
 };
 
-export default () => {
-  let name = getName();
-  let email = getEmail();
-  let mobile = getMobile();
-  let matterType = "Consultation";
-  let matterDesc = getMatterDesc();
-  let activityLog = getActivity();
-  let matterTitle = "";
-  let advertise = "";
-  let sources = "";
+export default async () => {
+  const name = getName();
+  openModal();
+  await delay(1500);
+  const matterTitle = getTitle();
+  const email = getEmail();
+  const mobile = getMobile();
+  const matterDesc = getMatterDesc();
+  const matterType = "Consultation";
+  const advertise = "Linkedin";
+  const sources = "Linkedin";
+  const activityLog = await getActivity();
 
   return {
     name,

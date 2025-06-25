@@ -236,7 +236,42 @@ export default () => {
 ]
 ```
 
-3. Implement DOM scraping logic in the content script and return a structured data object:
+3. If need to send an welcome email you just have to open `src/utils/filter.ts` and add this line :
+
+```tsx
+// First check the platform url in console.
+console.log(platform);
+
+// then set you platform name.
+switch (platform) {
+  case "www.applytosupply.digitalmarketplace.service.gov.uk":
+    platform = "applytosupply";
+    break;
+  case "www.bark.com":
+    platform = "bark";
+    break;
+  case "app.dosfinds.co.uk":
+    platform = "dos";
+    break;
+  case "www.linkedin.com":
+    platform = "linkedin";
+    break;
+  default:
+    platform = "";
+    break;
+}
+```
+
+4. Then open CRM `ics-extension-matter-save.php` and add:
+
+```tsx
+// -----------------------------------------------
+//    Step Ten : Send Confirmation Email
+// -----------------------------------------------
+if ($platform === "bark" || $platform === "dos") {
+```
+
+5. Implement DOM scraping logic in the content script and return a structured data object:
 
 ```tsx
 export default () => {
@@ -261,7 +296,5 @@ export default () => {
   };
 };
 ```
-
----
 
 _End of Documentation_
