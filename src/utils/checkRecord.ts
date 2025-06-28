@@ -12,7 +12,6 @@ export default async (clientInfo: ClientInfoType) => {
   // send request
   const requestBody = { fname, mobile, email };
   const response = await loadData(requestBody);
-  console.log(response);
   if (response.status === "error") return false;
 
   // update states
