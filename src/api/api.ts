@@ -11,7 +11,7 @@ import type { CheckParametersType } from "../types/type";
 export const loadData = async (
   params: CheckParametersType
 ): Promise<ServerResponse> => {
-  const response = await axiosInstance.get("ics-extension-check.php", {
+  const response = await axiosInstance.post("ics-extension-check.php", {
     params,
   });
   return response.data;

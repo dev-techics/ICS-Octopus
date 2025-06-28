@@ -9,7 +9,7 @@ const Matter: React.FC = () => {
 
   return (
     <section className={`px-2 ${members.length ? "pt-4" : "pt-2"}`}>
-      <h3 className="text text-gray-500 px-2">
+      <h3 className="text text-gray-500 px-2 mb-1">
         {members.length === 0
           ? "No member found for this leads."
           : members.length > 1
@@ -20,7 +20,7 @@ const Matter: React.FC = () => {
         {members.map((member, index) => (
           <div
             key={index}
-            className="flex items-center justify-between mt-1 hover:bg-gray-100/80 transition cursor-pointer rounded-md px-2"
+            className="flex items-center justify-between hover:bg-gray-100/80 transition cursor-pointer rounded-md px-2"
           >
             <div className="flex gap-3 py-2">
               <img

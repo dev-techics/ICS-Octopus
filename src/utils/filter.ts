@@ -5,19 +5,13 @@ export const getName = (name: string) => {
   return [fname, lname];
 };
 
-export const getMobile = (phone: string): string => {
-  // Remove spaces, parentheses, dashes
-  let cleaned = phone.replace(/\(0\)/, ""); // remove optional (0)
-  cleaned = cleaned.replace(/[^\d+]/g, ""); // keep digits and +
-
-  // Convert +44 to 0
+export const getMobile = (mobile: string): string => {
+  // Remove all spaces
+  let cleaned = mobile.replace(/\s+/g, "");
   if (cleaned.startsWith("+44")) {
-    return "0" + cleaned.slice(3); // "+44" is 3 chars
-  }
-
-  // Other country codes – remove the plus
-  if (cleaned.startsWith("+")) {
-    return cleaned.slice(1);
+    cleaned = "0" + cleaned.slice(3);
+  } else if (cleaned.startsWith("+")) {
+    cleaned = cleaned.slice(1);
   }
 
   return cleaned;

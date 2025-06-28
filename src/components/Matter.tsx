@@ -49,7 +49,7 @@ const Matter: React.FC = () => {
   return (
     <section className="px-2 pt-4">
       {/* title area start  */}
-      <h3 className="text text-gray-500 px-2">
+      <h3 className="text text-gray-500 px-2 mb-1">
         {matters.length === 0
           ? "No matter found for this leads."
           : matters.length > 1
@@ -62,7 +62,7 @@ const Matter: React.FC = () => {
         {matters.map((matter, index) => (
           <div
             key={index}
-            className="flex relative items-center justify-between mt-1 hover:bg-gray-100/80 transition cursor-pointer rounded-md px-2"
+            className="flex relative items-center justify-between hover:bg-gray-100/80 transition cursor-pointer rounded-md px-2"
           >
             <div
               onClick={() => openMatter(matter.caseid)}
@@ -74,7 +74,9 @@ const Matter: React.FC = () => {
                   {matter.title}
                 </h2>
                 <p className="truncate whitespace-nowrap overflow-hidden text-ellipsis max-w-[230px] text-gray-500">
-                  {stripHtml(matter.details)}
+                  {matter.details
+                    ? stripHtml(matter.details)
+                    : "This metter ha"}
                 </p>
               </div>
             </div>
