@@ -5,39 +5,43 @@ import mobileIcon from "../assets/icon-phone.svg";
 import { useAppContext } from "../context/AppContext";
 import type { Member } from "../types/data";
 import { isEmailMatch, isPhoneMatch } from "../utils/match";
+import { getMobile } from "../utils/filter";
 
 const Matter: React.FC = () => {
   const { clientInfo, members, memberId, setMemberId, setSelected } = useAppContext();
 
   const getParcentage = (member: Member): string => {
     const clientEmail = clientInfo.email;
-    const clientPhone = clientInfo.mobile;
-    const clientFname = clientInfo.name.split(" ")[0];
+    const clientPhone = getMobile(clientInfo.mobile);
+    const clientFname = clientInfo.name.split(" ")[0].toLowerCase();
 
+    const memberEmail = member.email;
+    const memberPhone = member.phone || member.mobile;
+    const memberFname = member.fname.toLowerCase();
 
     // email + number + name [ not masked ] 100%
-    return member.email == clientEmail &&
-      (member.phone == clientPhone || member.mobile == clientPhone) &&
-      member.fname == clientFname
+    return memberEmail === clientEmail &&
+      (memberPhone === clientPhone) &&
+      memberFname === clientFname
       ? "100%"
       : // email + number + name [ masked ]
-      isEmailMatch(clientEmail, member.email) &&
-        isPhoneMatch(clientPhone, member.phone || member.mobile) &&
-        member.fname == clientFname
+      isEmailMatch(clientEmail, memberEmail) &&
+        isPhoneMatch(clientPhone, memberPhone) &&
+        memberFname === clientFname
       ? "90%"
       : // email + phone [ masked ]
-      isEmailMatch(clientEmail, member.email) &&
-        isPhoneMatch(clientPhone, member.phone || member.mobile)
+      isEmailMatch(clientEmail, memberEmail) &&
+        isPhoneMatch(clientPhone, memberPhone)
       ? "50%"
       : // email + name [ masked ]
-      isEmailMatch(clientEmail, member.email) && member.fname == clientFname
+      isEmailMatch(clientEmail, memberEmail) && memberFname === clientFname
       ? "50%"
       : // if phone or name match
-      isPhoneMatch(clientPhone, member.phone || member.mobile) ||
-        member.fname == clientFname
+      isPhoneMatch(clientPhone, memberPhone) ||
+        memberFname === clientFname
       ? "50%"
       : // if not match
-        "0%";
+        "25%";
   }
 
   const handleMemberSelection = (memberId: number) =>{

@@ -14,9 +14,10 @@ export default async (clientInfo: ClientInfoType) => {
   const response = await loadData(requestBody);
   if (response.status === "error") return false;
 
+  console.log(response);
+
   // update states
   if (response.matters) updateMatters(response.matters);
   if (response.members) updateMembers(response.members);
-
   return true;
 };
