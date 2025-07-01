@@ -16,7 +16,7 @@ const getTitle = () => {
   if (!card) return "";
 
   const titleElement = card.querySelector(".text-body-medium.break-words");
-  return "[ Linkedin ] " + titleElement?.textContent?.trim() || "";
+  return "[Linkedin] " + titleElement?.textContent?.trim() || "";
 };
 
 const getEmail = () => {

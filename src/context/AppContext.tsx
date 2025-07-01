@@ -18,6 +18,12 @@ interface AppContextType {
 
   members: Member[];
   setMembers: React.Dispatch<React.SetStateAction<Member[]>>;
+
+  memberId: number | undefined;
+  setMemberId: React.Dispatch<React.SetStateAction<number| undefined>>;
+
+  selected:boolean,
+  setSelected: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 // global
@@ -39,6 +45,8 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
   const [saved, setSaved] = useState<boolean>(false);
   const [matters, setMatters] = useState<Matter[]>([]);
   const [members, setMembers] = useState<Member[]>([]);
+  const [memberId, setMemberId] = useState<number | undefined>(0);
+  const [selected, setSelected] = useState<boolean>(false);
   const [clientInfo, setClientInfo] = useState<ClientInfoType>({
     name: "",
     mobile: "",
@@ -69,6 +77,10 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
         setMatters,
         members,
         setMembers,
+        memberId,
+        setMemberId,
+        selected,
+        setSelected,
       }}
     >
       {children}

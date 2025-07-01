@@ -6,14 +6,13 @@ import { stripHtml } from "../utils/filter";
 import { updateLog } from "../api/api";
 
 const Matter: React.FC = () => {
+  const serverUrl = import.meta.env.VITE_SERVER_URL;
+  const userId = import.meta.env.VITE_USER_ID;
+  const { clientInfo, matters, memberId, selected} = useAppContext();
+  const [isSaved, setSaved] = useState<boolean>(false);
   const [loadingStates, setLoadingStates] = useState<{
     [key: number]: boolean;
   }>({});
-  const [isSaved, setSaved] = useState<boolean>(false);
-  const { clientInfo, matters } = useAppContext();
-
-  const serverUrl = import.meta.env.VITE_SERVER_URL;
-  const userId = import.meta.env.VITE_USER_ID;
 
   // open matter
   const openMatter = (matterId: number) => {
@@ -62,7 +61,11 @@ const Matter: React.FC = () => {
         {matters.map((matter, index) => (
           <div
             key={index}
-            className="flex relative items-center justify-between hover:bg-gray-100/80 transition cursor-pointer rounded-md px-2"
+            className={`${
+              !selected || (memberId && memberId.toString() === matter.fkclientid)
+                ? "opacity-100"
+                : "opacity-50"
+            } flex relative items-center justify-between hover:bg-gray-100/80 transition cursor-pointer rounded-md px-2`}
           >
             <div
               onClick={() => openMatter(matter.caseid)}
@@ -74,9 +77,10 @@ const Matter: React.FC = () => {
                   {matter.title}
                 </h2>
                 <p className="truncate whitespace-nowrap overflow-hidden text-ellipsis max-w-[230px] text-gray-500">
-                  {matter.details
+
+                  {matter.details.trim()
                     ? stripHtml(matter.details)
-                    : "This metter ha"}
+                    : "No description found."}
                 </p>
               </div>
             </div>
