@@ -3,10 +3,11 @@ import startScraping from "./utils/scraper";
 import checkRecord from "./utils/checkRecord";
 import Header from "./components/Header";
 import Client from "./components/Client";
-import Matter from "./components/Matter";
+// import Matter from "./components/Matter";
 import Footer from "./components/Footer";
-import Member from "./components/Member";
 import { useAppContext } from "./context/AppContext";
+import Member from "./components/Member";
+import Alert from "./components/Alert";
 
 const App: React.FC = () => {
   const { clientInfo, saved } = useAppContext();
@@ -22,8 +23,9 @@ const App: React.FC = () => {
     <main className="w-[450px]">
       <Header />
       <Client />
-      <Matter />
+      {/* <Alert/> */}
       <Member />
+      {/* <Matter /> */}
       <Footer />
     </main>
   );

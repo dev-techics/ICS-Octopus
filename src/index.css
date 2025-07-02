@@ -14,14 +14,15 @@
 }
 
 
-body{
-   font-family: "Inter", sans-serif;
-   color: var(--color-primary);
+body {
+  font-family: "Inter", sans-serif;
+  color: var(--color-primary);
 }
 
 
 /* -------------------------------------------- */
-.button_group, .matter_button_group {
+.button_group,
+.matter_button_group {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -31,7 +32,8 @@ body{
   gap: 1px;
   height: 5rem;
 }
-.matter_button_group{
+
+.matter_button_group {
   display: flex;
   background-color: transparent;
   top: -0.8rem;
@@ -125,4 +127,20 @@ body{
 .button_group.disabled .right_button {
   background-color: #dddddd;
   color: #afafaf;
+}
+
+
+::-webkit-scrollbar {
+  width: 8px;
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #d6d6d6;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
 }

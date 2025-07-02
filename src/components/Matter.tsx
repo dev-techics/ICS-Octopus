@@ -8,7 +8,7 @@ import { updateLog } from "../api/api";
 const Matter: React.FC = () => {
   const serverUrl = import.meta.env.VITE_SERVER_URL;
   const userId = import.meta.env.VITE_USER_ID;
-  const { clientInfo, matters, memberId, selected} = useAppContext();
+  const { clientInfo, matters, memberId, selected, setErrorMessage} = useAppContext();
   const [isSaved, setSaved] = useState<boolean>(false);
   const [loadingStates, setLoadingStates] = useState<{
     [key: number]: boolean;
@@ -20,41 +20,54 @@ const Matter: React.FC = () => {
     chrome.tabs.create({ url: URL });
   };
 
-  // update matter
   const updateActivityLog = async (matterId: number, priority: string = "") => {
-    // Set loading for this specific matter to true
     setLoadingStates((prevState) => ({
       ...prevState,
       [matterId]: true,
     }));
 
-    const response = await updateLog({
-      userId: userId,
-      matterId: matterId,
-      activityLog: clientInfo.activityLog,
-      priority: priority,
-    });
+    try {
+      const response = await updateLog({
+        userId: userId,
+        matterId: matterId,
+        activityLog: clientInfo.activityLog,
+        priority: priority,
+      });
 
-    if (response.status === "error") return;
+      if (response.status === "error") {
+        setErrorMessage(response.message || "Failed to update matter.");
+        setLoadingStates((prevState) => ({
+          ...prevState,
+          [matterId]: false,
+        }));
+        return;
+      }
 
-    // update states
-    setSaved(true);
-    setLoadingStates((prevState) => ({
-      ...prevState,
-      [matterId]: false,
-    }));
+      setSaved(true);
+    } catch (error) {
+      setErrorMessage(
+        error instanceof Error
+          ? error.message
+          : "Failed to update matter. Please try again."
+      );
+    } finally {
+      setLoadingStates((prevState) => ({
+        ...prevState,
+        [matterId]: false,
+      }));
+    }
   };
 
   return (
-    <section className="px-2 pt-4">
+    <section className="py-2">
       {/* title area start  */}
-      <h3 className="text text-gray-500 px-2 mb-1">
+      {/* <h3 className="text text-gray-500 px-2 mb-1">
         {matters.length === 0
           ? "No matter found for this leads."
           : matters.length > 1
           ? "Matters Found"
           : "Matter Found"}
-      </h3>
+      </h3> */}
 
       {/* matters area start  */}
       <div>
@@ -64,14 +77,14 @@ const Matter: React.FC = () => {
             className={`${
               !selected || (memberId && memberId.toString() === matter.fkclientid)
                 ? "opacity-100"
-                : "opacity-50"
+                : "hidden"
             } flex relative items-center justify-between hover:bg-gray-100/80 transition cursor-pointer rounded-md px-2`}
           >
             <div
               onClick={() => openMatter(matter.caseid)}
               className="flex gap-3 py-2"
             >
-              <img src={matterIcon} alt="matter" />
+              <img src={matterIcon} alt="matter" className="pl-1" />
               <div>
                 <h2 className="font-semibold text-[14px] max-w-[250px] truncate whitespace-nowrap overflow-hidden text-ellipsis">
                   {matter.title}

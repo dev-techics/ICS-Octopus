@@ -3,9 +3,11 @@ import GroupButton from "./ui/GroupButton";
 import { useAppContext } from "../context/AppContext";
 import { getMobile, getName, getPlatformName } from "../utils/filter";
 import { saveMatter } from "../api/api";
+import sendEmail from "../utils/send-email-sms"
+
 
 const Client: React.FC = () => {
-  const { clientInfo, members, saved, setSaved, loading, setLoading } =
+  const { clientInfo, members, saved, setSaved, loading, setLoading, setErrorMessage } =
     useAppContext();
 
   // hide group button
@@ -26,6 +28,7 @@ const Client: React.FC = () => {
     const platform = await getPlatformName();
     const [fname, lname] = getName(clientInfo.name);
     const mobile = getMobile(clientInfo.mobile);
+    sendEmail(); // only work for bark
 
     try {
       const response = await saveMatter({
@@ -47,7 +50,11 @@ const Client: React.FC = () => {
       if (response.status === "error") return;
       if (response.status === "success") setSaved(true);
     } catch (error) {
-      console.log(error);
+      setErrorMessage(
+        error instanceof Error
+          ? error.message
+          : "Failed to save matter. Please try again."
+      );
     } finally {
       setLoading(false);
     }

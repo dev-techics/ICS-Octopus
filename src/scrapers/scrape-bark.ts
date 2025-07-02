@@ -37,13 +37,27 @@ const getActivity = () => {
     });
   }
 
-  return finalOutput;
+  // request quotes info and message
+  let requestQuotes = '';
+  const responseSpan = document.querySelector('.response.text-regular');
+  if (responseSpan) {
+    const spanTextNode = responseSpan.childNodes[0];
+    const spanText = spanTextNode?.textContent?.trim() || '';
+    const messageElement = responseSpan.querySelector('.font-weight-bold');
+    const message = messageElement?.textContent?.trim() || '';
+    if (spanText || message) {
+      requestQuotes = `Info: ${spanText}\nMessage: ${message}\n`;
+    }
+  }
+
+  return finalOutput + requestQuotes;
 };
 
 // get title
 const getTitle = () => {
   return getService() + " - Bark Enquiry";
 };
+
 
 export default () => {
   const name = getName();
@@ -55,6 +69,7 @@ export default () => {
   const matterDesc = "Created by ICS-Octopus.";
   const advertise = "Bark";
   const sources = "Bark";
+
   return {
     name,
     mobile,

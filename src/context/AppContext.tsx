@@ -24,6 +24,9 @@ interface AppContextType {
 
   selected:boolean,
   setSelected: React.Dispatch<React.SetStateAction<boolean>>;
+
+  errorMessage: string;
+  setErrorMessage: React.Dispatch<React.SetStateAction<string>>;
 }
 
 // global
@@ -47,6 +50,7 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
   const [members, setMembers] = useState<Member[]>([]);
   const [memberId, setMemberId] = useState<number | undefined>(0);
   const [selected, setSelected] = useState<boolean>(false);
+  const [errorMessage, setErrorMessage] = useState<string>("");
   const [clientInfo, setClientInfo] = useState<ClientInfoType>({
     name: "",
     mobile: "",
@@ -81,6 +85,8 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
         setMemberId,
         selected,
         setSelected,
+        errorMessage,
+        setErrorMessage
       }}
     >
       {children}
