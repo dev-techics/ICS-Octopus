@@ -46,14 +46,14 @@ const Client: React.FC = () => {
         priority: priority,
         activityLog: clientInfo.activityLog,
       });
-      console.log(response);
-      if (response.status === "error") return;
+
+      if (response.status === "error") throw Error(response.message);
       if (response.status === "success") setSaved(true);
     } catch (error) {
       setErrorMessage(
         error instanceof Error
           ? error.message
-          : "Failed to save matter. Please try again."
+          : "Failed to save matter. Please try again." 
       );
     } finally {
       setLoading(false);

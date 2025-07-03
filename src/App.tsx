@@ -7,7 +7,7 @@ import Client from "./components/Client";
 import Footer from "./components/Footer";
 import { useAppContext } from "./context/AppContext";
 import Member from "./components/Member";
-import Alert from "./components/Alert";
+// import Alert from "./components/Alert";
 
 const App: React.FC = () => {
   const { clientInfo, saved } = useAppContext();
