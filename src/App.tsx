@@ -3,29 +3,52 @@ import startScraping from "./utils/scraper";
 import checkRecord from "./utils/checkRecord";
 import Header from "./components/Header";
 import Client from "./components/Client";
-// import Matter from "./components/Matter";
 import Footer from "./components/Footer";
-import { useAppContext } from "./context/AppContext";
 import Member from "./components/Member";
-// import Alert from "./components/Alert";
+// import Alert from "./components/Alert"; // Optional error display component
+import { useAppContext } from "./context/AppContext";
 
 const App: React.FC = () => {
-  const { clientInfo, saved } = useAppContext();
+  const { clientInfo, saved, setErrorMessage } = useAppContext();
 
-  // scraping & checking
-  // prettier-ignore
-  useEffect(() => { startScraping()}, []);
+  useEffect(() => {startScraping()}, []);
+  useEffect(() => {if (clientInfo.email) checkRecord(clientInfo)}, [clientInfo, saved]);
+
+  // Sync error messages from content script via chrome.storage.local
+  // only applied for bark
   useEffect(() => {
-    clientInfo.email && checkRecord(clientInfo);
-  }, [clientInfo, saved]);
+    // Initial read
+    chrome.storage.local.get("errorMessage", (result) => {
+      if (result.errorMessage) {
+        setErrorMessage(result.errorMessage);
+        chrome.storage.local.remove("errorMessage");
+      }
+    });
+
+    // Real-time listener
+    const handleChange = (
+      changes: { [key: string]: chrome.storage.StorageChange },
+      areaName: string
+    ) => {
+      if (areaName === "local" && changes.errorMessage) {
+        const newValue = changes.errorMessage.newValue;
+        if (newValue) {
+          setErrorMessage(newValue);
+          chrome.storage.local.remove("errorMessage");
+        }
+      }
+    };
+
+    chrome.storage.onChanged.addListener(handleChange);
+    // Cleanup on unmount
+    return () => chrome.storage.onChanged.removeListener(handleChange);
+  }, [setErrorMessage]);
 
   return (
     <main className="w-[450px]">
       <Header />
       <Client />
-      {/* <Alert/> */}
       <Member />
-      {/* <Matter /> */}
       <Footer />
     </main>
   );

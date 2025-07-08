@@ -34,11 +34,8 @@ let externalSetClientInfo: React.Dispatch<
   React.SetStateAction<ClientInfoType>
 > | null = null;
 
-let externalSetMatters: React.Dispatch<React.SetStateAction<Matter[]>> | null =
-  null;
-
-let externalSetMembers: React.Dispatch<React.SetStateAction<Member[]>> | null =
-  null;
+let externalSetMatters: React.Dispatch<React.SetStateAction<Matter[]>> | null = null;
+let externalSetMembers: React.Dispatch<React.SetStateAction<Member[]>> | null = null;
 
 // context & provider
 const AppContext = createContext<AppContextType | undefined>(undefined);
