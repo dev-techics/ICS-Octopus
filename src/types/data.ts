@@ -35,6 +35,7 @@ export interface SaveRequestType {
   fname: string;
   lname: string;
   email: string;
+  address?: string;
   mobile: string;
 
   matterType: string;

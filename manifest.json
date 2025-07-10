@@ -36,6 +36,10 @@
     {
       "js": ["src/content-scripts/dos.tsx"],
       "matches": ["https://app.dosfinds.co.uk/*"]
+    },
+    {
+      "js": ["src/content-scripts/adcs.tsx"],
+      "matches": ["https://www.adcs.org.uk/*"]
     }
   ]
 }

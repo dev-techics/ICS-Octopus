@@ -20,9 +20,9 @@ interface AppContextType {
   setMembers: React.Dispatch<React.SetStateAction<Member[]>>;
 
   memberId: number | undefined;
-  setMemberId: React.Dispatch<React.SetStateAction<number| undefined>>;
+  setMemberId: React.Dispatch<React.SetStateAction<number | undefined>>;
 
-  selected:boolean,
+  selected: boolean;
   setSelected: React.Dispatch<React.SetStateAction<boolean>>;
 
   errorMessage: string;
@@ -34,8 +34,10 @@ let externalSetClientInfo: React.Dispatch<
   React.SetStateAction<ClientInfoType>
 > | null = null;
 
-let externalSetMatters: React.Dispatch<React.SetStateAction<Matter[]>> | null = null;
-let externalSetMembers: React.Dispatch<React.SetStateAction<Member[]>> | null = null;
+let externalSetMatters: React.Dispatch<React.SetStateAction<Matter[]>> | null =
+  null;
+let externalSetMembers: React.Dispatch<React.SetStateAction<Member[]>> | null =
+  null;
 
 // context & provider
 const AppContext = createContext<AppContextType | undefined>(undefined);
@@ -52,6 +54,7 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
     name: "",
     mobile: "",
     email: "",
+    address: "",
     matterType: "",
     matterTitle: "",
     matterDesc: "",
@@ -83,7 +86,7 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
         selected,
         setSelected,
         errorMessage,
-        setErrorMessage
+        setErrorMessage,
       }}
     >
       {children}

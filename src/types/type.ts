@@ -20,6 +20,7 @@ export interface ClientInfoType {
   name: string;
   mobile: string;
   email: string;
+  address?: string;
   matterType: string;
   matterTitle: string;
   matterDesc: string;

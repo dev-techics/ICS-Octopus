@@ -11,34 +11,37 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   }
 
   if (request.action === "SEND_EMAIL_SMS") {
-    const optionEmail = document.getElementById("seller-button-btn-send-template");
+    const optionEmail = document.getElementById(
+      "seller-button-btn-send-template"
+    );
     const optionSms = document.getElementById("seller-button-btn-send-sms");
 
     if (optionEmail) optionEmail.click();
     if (optionSms) optionSms.click();
 
     setTimeout(() => {
-      const smsModal = document.querySelector('div#bark-modal.modal.bark-modal.show');
-      const emailModal = document.querySelector('#selectTemplateModal');
+      const smsModal = document.querySelector(
+        "div#bark-modal.modal.bark-modal.show"
+      );
+      const emailModal = document.querySelector("#selectTemplateModal");
 
-      const smsSendButton = smsModal?.querySelector<HTMLButtonElement>("button.btn-primary");
-      const emailSendButton = emailModal?.querySelector<HTMLButtonElement>("button.btn-primary");
+      const smsSendButton =
+        smsModal?.querySelector<HTMLButtonElement>("button.btn-primary");
+      const emailSendButton =
+        emailModal?.querySelector<HTMLButtonElement>("button.btn-primary");
 
-      if(emailSendButton) console.log("Email Send Successful");
+      // click email send button
+      if (emailSendButton) emailSendButton.click();
       else chrome.storage.local.set({ errorMessage: "Failed to send Email" });
-      
-      if(smsSendButton) setTimeout(()=>console.log("Message send successful"), 500);
+
+      // click sms send button
+      if (smsSendButton) setTimeout(() => smsSendButton.click(), 500);
       else chrome.storage.local.set({ errorMessage: "Failed to send SMS" });
     }, 1000);
   }
 
   return true;
 });
-
-
-
-
-
 
 // // React widget component
 // const MyWidget = () => {

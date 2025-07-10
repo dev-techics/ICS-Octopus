@@ -55,6 +55,10 @@ export const getPlatformName = async (): Promise<string> => {
         platform = "linkedin";
         break;
 
+      case "www.adcs.org.uk":
+        platform = "linkedin";
+        break;
+
       default:
         platform = "";
         break;

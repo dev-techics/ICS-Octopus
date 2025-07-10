@@ -3,12 +3,18 @@ import GroupButton from "./ui/GroupButton";
 import { useAppContext } from "../context/AppContext";
 import { getMobile, getName, getPlatformName } from "../utils/filter";
 import { saveMatter } from "../api/api";
-import sendEmail from "../utils/send-email-sms"
-
+import sendEmail from "../utils/send-email-sms";
 
 const Client: React.FC = () => {
-  const { clientInfo, members, saved, setSaved, loading, setLoading, setErrorMessage } =
-    useAppContext();
+  const {
+    clientInfo,
+    members,
+    saved,
+    setSaved,
+    loading,
+    setLoading,
+    setErrorMessage,
+  } = useAppContext();
 
   // hide group button
   let existEmail = () => {
@@ -38,6 +44,7 @@ const Client: React.FC = () => {
         lname: lname,
         email: clientInfo.email,
         mobile: mobile,
+        address: clientInfo.address,
         matterType: clientInfo.matterType,
         matterTitle: clientInfo.matterTitle,
         matterDesc: clientInfo.matterDesc,
@@ -53,7 +60,7 @@ const Client: React.FC = () => {
       setErrorMessage(
         error instanceof Error
           ? error.message
-          : "Failed to save matter. Please try again." 
+          : "Failed to save matter. Please try again."
       );
     } finally {
       setLoading(false);
