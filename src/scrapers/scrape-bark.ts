@@ -1,3 +1,9 @@
+// get project id [Client Id form BARK]
+const getProjectId = () => {
+  const selectedElement = document.querySelector<Element>('.responses-projects-item.selected');
+  return selectedElement?.getAttribute('data-project-id') ?? "";
+}
+
 // get client name
 const getName = () => {
   const element = document.querySelector(".buyer_name");
@@ -38,13 +44,13 @@ const getActivity = () => {
   }
 
   // request quotes info and message
-  let requestQuotes = '';
-  const responseSpan = document.querySelector('.response.text-regular');
+  let requestQuotes = "";
+  const responseSpan = document.querySelector(".response.text-regular");
   if (responseSpan) {
     const spanTextNode = responseSpan.childNodes[0];
-    const spanText = spanTextNode?.textContent?.trim() || '';
-    const messageElement = responseSpan.querySelector('.font-weight-bold');
-    const message = messageElement?.textContent?.trim() || '';
+    const spanText = spanTextNode?.textContent?.trim() || "";
+    const messageElement = responseSpan.querySelector(".font-weight-bold");
+    const message = messageElement?.textContent?.trim() || "";
     if (spanText || message) {
       requestQuotes = `Info: ${spanText}\nMessage: ${message}\n`;
     }
@@ -59,6 +65,7 @@ const getTitle = () => {
 };
 
 
+interface ExtraData { projectId: string | null }
 export default () => {
   const name = getName();
   const email = getEmail();
@@ -69,7 +76,7 @@ export default () => {
   const matterDesc = "Created by ICS-Octopus.";
   const advertise = "Bark";
   const sources = "Bark";
-
+  const extra: ExtraData = {projectId: getProjectId()};
   return {
     name,
     mobile,
@@ -80,5 +87,6 @@ export default () => {
     activityLog,
     advertise,
     sources,
+    extra,
   };
 };

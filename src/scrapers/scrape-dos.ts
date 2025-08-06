@@ -4,10 +4,10 @@ let service = "";
 // select card by click
 document.addEventListener("click", (event) => {
   const target = event.target as HTMLElement;
-  targetedCard = target.closest(".lead_card");
+  targetedCard = target.closest(".dos-card-dimensions");
   if (targetedCard) {
     document
-      .querySelectorAll(".lead_card")
+      .querySelectorAll(".dos-card-dimensions")
       .forEach((c) => c.classList.remove("border-2", "border-black"));
     targetedCard.classList.add("border-2", "border-black");
   }

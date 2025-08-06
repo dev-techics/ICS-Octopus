@@ -61,6 +61,7 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
     activityLog: "",
     advertise: "",
     sources: "",
+    extra: {}, 
   });
 
   // assign to global

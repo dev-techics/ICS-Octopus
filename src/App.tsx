@@ -7,6 +7,7 @@ import Footer from "./components/Footer";
 import Member from "./components/Member";
 // import Alert from "./components/Alert"; // Optional error display component
 import { useAppContext } from "./context/AppContext";
+import Matter from "./components/Matter";
 
 const App: React.FC = () => {
   const { clientInfo, saved, setErrorMessage } = useAppContext();
@@ -39,8 +40,8 @@ const App: React.FC = () => {
       }
     };
 
-    chrome.storage.onChanged.addListener(handleChange);
     // Cleanup on unmount
+    chrome.storage.onChanged.addListener(handleChange);
     return () => chrome.storage.onChanged.removeListener(handleChange);
   }, [setErrorMessage]);
 
@@ -48,6 +49,7 @@ const App: React.FC = () => {
     <main className="w-[450px]">
       <Header />
       <Client />
+      <Matter/>
       <Member />
       <Footer />
     </main>

@@ -21,9 +21,7 @@
   "content_scripts": [
     {
       "js": ["src/content-scripts/apply-to-supply.tsx"],
-      "matches": [
-        "https://www.applytosupply.digitalmarketplace.service.gov.uk/*"
-      ]
+      "matches": ["https://www.applytosupply.digitalmarketplace.service.gov.uk/*"]
     },
     {
       "js": ["src/content-scripts/bark.tsx"],

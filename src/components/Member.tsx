@@ -6,8 +6,7 @@ import { useAppContext } from "../context/AppContext";
 import type { Member as MemberType } from "../types/data";
 import { isEmailMatch, isPhoneMatch } from "../utils/match";
 import { getMobile } from "../utils/filter";
-import { AnimatePresence, motion } from "framer-motion";
-import Matter from "./Matter";
+
 
 const Member: React.FC = () => {
   const { clientInfo, members, memberId, setMemberId, setSelected } = useAppContext();
@@ -38,7 +37,7 @@ const Member: React.FC = () => {
   const handleMemberSelection = (memberId: number, index: number) => {
     setMemberId(memberId);
     setSelected(true);
-    setOpenIndex(openIndex === index ? null : index); // toggle dropdown
+    setOpenIndex(openIndex === index ? null : index);
   };
 
   return (
@@ -102,7 +101,9 @@ const Member: React.FC = () => {
                   </div>
                 </div>
               </div>
-              <AnimatePresence>
+
+              {/* Dropdown Matter*/}
+              {/* <AnimatePresence>
                 {openIndex === index && (
                   <motion.div
                     initial={{ opacity: 0, height: 0 }}
@@ -113,7 +114,7 @@ const Member: React.FC = () => {
                     <Matter />
                   </motion.div>
                 )}
-              </AnimatePresence>
+              </AnimatePresence> */}
             </div>
           ))}
       </div>

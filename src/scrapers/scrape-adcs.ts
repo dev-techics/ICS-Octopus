@@ -37,7 +37,7 @@ const getContactInfo = (): string[] => {
 };
 
 // get matter title in Pascal Case (with spaces)
-const getMatterTitle = (): string => {
+const getMatterTitle = (jobTitle: string): string => {
   const url = window.location.href;
   const urlObj = new URL(url);
   const slug = urlObj.pathname
@@ -47,7 +47,7 @@ const getMatterTitle = (): string => {
     ?.replace(/-/g, " ")
     .replace(/\b\w/g, (char) => char.toUpperCase());
 
-  return slug || "[ADCS] Untitled Matter";
+  return slug ? `[ADCS] ${slug} - (${jobTitle})` : "[ADCS] Untitled Matter";
 };
 
 // get website form email address
@@ -87,7 +87,7 @@ const getMatterDesc = (
 // return client information
 export default () => {
   const [name, mobile, email, jobTile, address, region] = getContactInfo();
-  const matterTitle = getMatterTitle();
+  const matterTitle = getMatterTitle(jobTile);
   const activityLog = "Created by ICS Octopus";
   const matterType = "Consultation";
   const matterDesc = getMatterDesc(matterTitle, jobTile, region, email);

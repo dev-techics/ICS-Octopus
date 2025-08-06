@@ -52,6 +52,7 @@ const Client: React.FC = () => {
         sources: clientInfo.sources,
         priority: priority,
         activityLog: clientInfo.activityLog,
+        extra: clientInfo.extra,
       });
 
       if (response.status === "error") throw Error(response.message);

@@ -59,15 +59,15 @@ const Matter: React.FC = () => {
   };
 
   return (
-    <section className="py-2">
+    <section className={`px-2 ${matters.length ? "pt-4" : "pt-2"}`}>
       {/* title area start  */}
-      {/* <h3 className="text text-gray-500 px-2 mb-1">
+      <h3 className="text text-gray-500 px-2 mb-1">
         {matters.length === 0
           ? "No matter found for this leads."
           : matters.length > 1
           ? "Matters Found"
           : "Matter Found"}
-      </h3> */}
+      </h3>
 
       {/* matters area start  */}
       <div>
@@ -77,7 +77,7 @@ const Matter: React.FC = () => {
             className={`${
               !selected || (memberId && memberId.toString() === matter.fkclientid)
                 ? "opacity-100"
-                : "hidden"
+                : "opacity-50"
             } flex relative items-center justify-between hover:bg-gray-100/80 transition cursor-pointer rounded-md px-2`}
           >
             <div

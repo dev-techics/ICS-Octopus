@@ -46,4 +46,5 @@ export interface SaveRequestType {
 
   priority: string;
   activityLog: string;
+  extra?: any;
 }

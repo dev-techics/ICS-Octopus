@@ -27,6 +27,7 @@ export interface ClientInfoType {
   activityLog: string;
   advertise: string;
   sources: string;
+  extra?: any;
 }
 
 export interface CheckParametersType {
