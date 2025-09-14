@@ -1,8 +1,10 @@
 // get project id [Client Id form BARK]
 const getProjectId = () => {
-  const selectedElement = document.querySelector<Element>('.responses-projects-item.selected');
-  return selectedElement?.getAttribute('data-project-id') ?? "";
-}
+  const selectedElement = document.querySelector<Element>(
+    ".responses-projects-item.selected"
+  );
+  return selectedElement?.getAttribute("data-project-id") ?? "";
+};
 
 // get client name
 const getName = () => {
@@ -64,8 +66,9 @@ const getTitle = () => {
   return getService() + " - Bark Enquiry";
 };
 
-
-interface ExtraData { projectId: string | null }
+interface ExtraData {
+  projectId: string | null;
+}
 export default () => {
   const name = getName();
   const email = getEmail();
@@ -76,7 +79,7 @@ export default () => {
   const matterDesc = "Created by ICS-Octopus.";
   const advertise = "Bark";
   const sources = "Bark";
-  const extra: ExtraData = {projectId: getProjectId()};
+  const extra: ExtraData = { projectId: getProjectId() };
   return {
     name,
     mobile,
