@@ -8,7 +8,8 @@ import { updateLog } from "../api/api";
 const Matter: React.FC = () => {
   const serverUrl = import.meta.env.VITE_SERVER_URL;
   const userId = import.meta.env.VITE_USER_ID;
-  const { clientInfo, matters, memberId, selected, setErrorMessage} = useAppContext();
+  const { clientInfo, matters, memberId, selected, setErrorMessage } =
+    useAppContext();
   const [isSaved, setSaved] = useState<boolean>(false);
   const [loadingStates, setLoadingStates] = useState<{
     [key: number]: boolean;
@@ -32,6 +33,7 @@ const Matter: React.FC = () => {
         matterId: matterId,
         activityLog: clientInfo.activityLog,
         priority: priority,
+        extra: { projectId: clientInfo.extra?.projectId || null },
       });
 
       if (response.status === "error") {
@@ -75,7 +77,8 @@ const Matter: React.FC = () => {
           <div
             key={index}
             className={`${
-              !selected || (memberId && memberId.toString() === matter.fkclientid)
+              !selected ||
+              (memberId && memberId.toString() === matter.fkclientid)
                 ? "opacity-100"
                 : "opacity-50"
             } flex relative items-center justify-between hover:bg-gray-100/80 transition cursor-pointer rounded-md px-2`}
@@ -90,7 +93,6 @@ const Matter: React.FC = () => {
                   {matter.title}
                 </h2>
                 <p className="truncate whitespace-nowrap overflow-hidden text-ellipsis max-w-[230px] text-gray-500">
-
                   {matter.details.trim()
                     ? stripHtml(matter.details)
                     : "No description found."}

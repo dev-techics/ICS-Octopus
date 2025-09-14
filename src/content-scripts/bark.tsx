@@ -22,41 +22,33 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   return false;
 });
 
+// const optionEmail = document.getElementById(
+//   "seller-button-btn-send-template"
+// );
+// const optionSms = document.getElementById("seller-button-btn-send-sms");
 
+// if (optionEmail) optionEmail.click();
+// if (optionSms) optionSms.click();
 
+// setTimeout(() => {
+//   const smsModal = document.querySelector(
+//     "div#bark-modal.modal.bark-modal.show"
+//   );
+//   const emailModal = document.querySelector("#selectTemplateModal");
 
+//   const smsSendButton =
+//     smsModal?.querySelector<HTMLButtonElement>("button.btn-primary");
+//   const emailSendButton =
+//     emailModal?.querySelector<HTMLButtonElement>("button.btn-primary");
 
+//   // click email send button
+//   if (emailSendButton) emailSendButton.click();
+//   else chrome.storage.local.set({ errorMessage: "Failed to send Email" });
 
-    // const optionEmail = document.getElementById(
-    //   "seller-button-btn-send-template"
-    // );
-    // const optionSms = document.getElementById("seller-button-btn-send-sms");
-
-    // if (optionEmail) optionEmail.click();
-    // if (optionSms) optionSms.click();
-
-    // setTimeout(() => {
-    //   const smsModal = document.querySelector(
-    //     "div#bark-modal.modal.bark-modal.show"
-    //   );
-    //   const emailModal = document.querySelector("#selectTemplateModal");
-
-    //   const smsSendButton =
-    //     smsModal?.querySelector<HTMLButtonElement>("button.btn-primary");
-    //   const emailSendButton =
-    //     emailModal?.querySelector<HTMLButtonElement>("button.btn-primary");
-
-    //   // click email send button
-    //   if (emailSendButton) emailSendButton.click();
-    //   else chrome.storage.local.set({ errorMessage: "Failed to send Email" });
-
-    //   // click sms send button
-    //   if (smsSendButton) setTimeout(() => smsSendButton.click(), 500);
-    //   else chrome.storage.local.set({ errorMessage: "Failed to send SMS" });
-    // }, 1000);
-
-
-
+//   // click sms send button
+//   if (smsSendButton) setTimeout(() => smsSendButton.click(), 500);
+//   else chrome.storage.local.set({ errorMessage: "Failed to send SMS" });
+// }, 1000);
 
 // /* ----------------------------------------
 //       Utility: Wait for Page Ready

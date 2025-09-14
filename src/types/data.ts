@@ -27,6 +27,7 @@ export interface LogRequestType {
   matterId: number;
   activityLog: string;
   priority: string;
+  extra?: any;
 }
 
 export interface SaveRequestType {
