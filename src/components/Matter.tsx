@@ -33,7 +33,10 @@ const Matter: React.FC = () => {
         matterId: matterId,
         activityLog: clientInfo.activityLog,
         priority: priority,
-        extra: { projectId: clientInfo.extra?.projectId || null },
+        extra: {
+          projectId: clientInfo.extra?.projectId || null,
+          platform: clientInfo.advertise || null,
+        },
       });
 
       if (response.status === "error") {
