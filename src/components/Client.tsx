@@ -4,6 +4,9 @@ import { useAppContext } from "../context/AppContext";
 import { getMobile, getName, getPlatformName } from "../utils/filter";
 import { saveMatter } from "../api/api";
 import sendEmail from "../utils/send-email-sms";
+import loadingIcon from "../assets/loading.svg";
+import iconVerify from "../assets/icon-verify.svg";
+import crossIcon from "../assets/icon-cross.svg";
 
 const Client: React.FC = () => {
   const {
@@ -14,18 +17,17 @@ const Client: React.FC = () => {
     loading,
     setLoading,
     setErrorMessage,
+    emailState,
   } = useAppContext();
 
   // hide group button
-  let existEmail = () => {
+  const existEmail = () => {
     return !clientInfo.email || clientInfo.email.includes("*");
   };
 
-  // show saved
+  // show saved if member exists
   members.forEach((member) => {
-    if (member.email === clientInfo.email) {
-      if (!saved) setSaved(true);
-    }
+    if (member.email === clientInfo.email && !saved) setSaved(true);
   });
 
   // create new matter
@@ -34,23 +36,23 @@ const Client: React.FC = () => {
     const platform = await getPlatformName();
     const [fname, lname] = getName(clientInfo.name);
     const mobile = getMobile(clientInfo.mobile);
-    sendEmail(); // only work for bark
+    sendEmail(); // only works for bark
 
     try {
       const response = await saveMatter({
-        userId: userId,
+        userId,
         website: platform,
-        fname: fname,
-        lname: lname,
+        fname,
+        lname,
         email: clientInfo.email,
-        mobile: mobile,
+        mobile,
         address: clientInfo.address,
         matterType: clientInfo.matterType,
         matterTitle: clientInfo.matterTitle,
         matterDesc: clientInfo.matterDesc,
         advertise: clientInfo.advertise,
         sources: clientInfo.sources,
-        priority: priority,
+        priority,
         activityLog: clientInfo.activityLog,
         extra: clientInfo.extra,
       });
@@ -75,15 +77,46 @@ const Client: React.FC = () => {
           <div className="h-10 w-10 flex justify-center items-center rounded-full font-semibold bg-avatar text-white text-lg">
             {clientInfo.name[0] || "X"}
           </div>
+
           <div>
             <h2 className="font-bold text-slate-800 text-[15px]">
               {clientInfo.name || "No buyer name found."}
             </h2>
-            <p className="text text-gray-500">
-              {clientInfo.email || "No buyer email found."}
-            </p>
+
+            <div className="text text-gray-500 flex items-center gap-2">
+              <span>{clientInfo.email || "No buyer email found."}</span>
+
+              {!existEmail() && (
+                <>
+                  {emailState === "loading" && (
+                    <span className="bg-gray-200 h-5 w-5 rounded-full p-0.5 inline-flex">
+                      <img
+                        src={loadingIcon}
+                        alt="loading-icon"
+                        className="animate-spin"
+                      />
+                    </span>
+                  )}
+
+                  {emailState === "valid" && (
+                    <img
+                      src={iconVerify}
+                      alt="verified-icon"
+                      className="h-5 w-5"
+                    />
+                  )}
+
+                  {emailState === "invalid" && (
+                    <span className="bg-red-200 h-5 w-5 rounded-full p-0.5 inline-flex">
+                      <img src={crossIcon} alt="invalid-icon" />
+                    </span>
+                  )}
+                </>
+              )}
+            </div>
           </div>
         </div>
+
         <GroupButton
           loading={loading}
           disabled={saved}

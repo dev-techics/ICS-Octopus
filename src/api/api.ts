@@ -1,11 +1,23 @@
 // src/utils/api.ts
 import axiosInstance from "./axios";
 import type {
+  EmailVerificationResponse,
   LogRequestType,
   SaveRequestType,
   ServerResponse,
 } from "../types/data";
 import type { CheckParametersType } from "../types/type";
+
+// Get all data
+export const verifyEmail = async (
+  email: string
+): Promise<EmailVerificationResponse> => {
+  const response = await axiosInstance.post(
+    "https://booking.icslegal.com/email-checker/index.php",
+    { email: email }
+  );
+  return response.data;
+};
 
 // Get all data
 export const loadData = async (

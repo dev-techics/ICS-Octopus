@@ -1,19 +1,24 @@
 import React, { useEffect } from "react";
 import startScraping from "./utils/scraper";
 import checkRecord from "./utils/checkRecord";
+import verifyEmail from "./utils/verifyEmail";
 import Header from "./components/Header";
 import Client from "./components/Client";
 import Footer from "./components/Footer";
 import Member from "./components/Member";
-// import Alert from "./components/Alert"; // Optional error display component
 import { useAppContext } from "./context/AppContext";
 import Matter from "./components/Matter";
-
 const App: React.FC = () => {
   const { clientInfo, saved, setErrorMessage } = useAppContext();
 
-  useEffect(() => {startScraping()}, []);
-  useEffect(() => {if (clientInfo.email) checkRecord(clientInfo)}, [clientInfo, saved]);
+  useEffect(() => {
+    startScraping();
+  }, []);
+
+  useEffect(() => {
+    if (clientInfo.email) checkRecord(clientInfo);
+    if (clientInfo.email) verifyEmail(clientInfo.email);
+  }, [clientInfo, saved]);
 
   // Sync error messages from content script via chrome.storage.local
   // only applied for bark
@@ -49,7 +54,7 @@ const App: React.FC = () => {
     <main className="w-[450px]">
       <Header />
       <Client />
-      <Matter/>
+      <Matter />
       <Member />
       <Footer />
     </main>

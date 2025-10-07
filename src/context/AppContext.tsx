@@ -27,6 +27,9 @@ interface AppContextType {
 
   errorMessage: string;
   setErrorMessage: React.Dispatch<React.SetStateAction<string>>;
+
+  emailState: string;
+  setEmailState: React.Dispatch<React.SetStateAction<string>>;
 }
 
 // global
@@ -38,6 +41,7 @@ let externalSetMatters: React.Dispatch<React.SetStateAction<Matter[]>> | null =
   null;
 let externalSetMembers: React.Dispatch<React.SetStateAction<Member[]>> | null =
   null;
+let externalSetEmailState: React.Dispatch<React.SetStateAction<string>>;
 
 // context & provider
 const AppContext = createContext<AppContextType | undefined>(undefined);
@@ -50,6 +54,7 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
   const [memberId, setMemberId] = useState<number | undefined>(0);
   const [selected, setSelected] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<string>("");
+  const [emailState, setEmailState] = useState<string>("loading");
   const [clientInfo, setClientInfo] = useState<ClientInfoType>({
     name: "",
     mobile: "",
@@ -61,13 +66,14 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
     activityLog: "",
     advertise: "",
     sources: "",
-    extra: {}, 
+    extra: {},
   });
 
   // assign to global
   externalSetClientInfo = setClientInfo;
   externalSetMatters = setMatters;
   externalSetMembers = setMembers;
+  externalSetEmailState = setEmailState;
 
   return (
     <AppContext.Provider
@@ -88,6 +94,8 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
         setSelected,
         errorMessage,
         setErrorMessage,
+        emailState,
+        setEmailState,
       }}
     >
       {children}
@@ -129,4 +137,13 @@ export const useAppContext = (): AppContextType => {
     throw new Error("useAppContext must be used within a MyProvider");
   }
   return context;
+};
+
+// custom hook
+export const updateEmailState = (state: string) => {
+  if (externalSetEmailState) {
+    externalSetEmailState(state);
+  } else {
+    console.warn("Context not initialized yet.");
+  }
 };

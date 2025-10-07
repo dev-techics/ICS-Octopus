@@ -28,6 +28,10 @@
       "matches": ["https://www.bark.com/*"]
     },
     {
+      "js": ["src/content-scripts/bark-refund.tsx"],
+      "matches": ["https://help.bark.com/*"]
+    },
+    {
       "js": ["src/content-scripts/linkedin.tsx"],
       "matches": ["https://www.linkedin.com/*"]
     },

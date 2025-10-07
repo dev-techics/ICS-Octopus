@@ -22,6 +22,14 @@ export interface ServerResponse {
   message?: string;
 }
 
+export interface EmailVerificationResponse {
+  success: boolean;
+  email: string;
+  valid: boolean;
+  rfc_valid: boolean;
+  message: string;
+}
+
 export interface LogRequestType {
   userId: number;
   matterId: number;

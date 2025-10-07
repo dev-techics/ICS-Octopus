@@ -1,24 +1,22 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
 @import "tailwindcss";
 
 @theme {
   --color-primary: #101635;
-  --color-avatar: #26848E;
+  --color-avatar: #26848e;
 }
 
 @layer base {
   [data-theme="light"] {
     --color-primary: #101635;
-    --color-avatar: #26848E;
+    --color-avatar: #26848e;
   }
 }
-
 
 body {
   font-family: "Inter", sans-serif;
   color: var(--color-primary);
 }
-
 
 /* -------------------------------------------- */
 .button_group,
@@ -128,7 +126,6 @@ body {
   background-color: #dddddd;
   color: #afafaf;
 }
-
 
 ::-webkit-scrollbar {
   width: 8px;
