@@ -35,3 +35,9 @@ export interface CheckParametersType {
   mobile: string;
   email: string;
 }
+
+export interface BarkRefundModalParamsType {
+  title : string,
+  description: string;
+  redirect?: boolean;
+}

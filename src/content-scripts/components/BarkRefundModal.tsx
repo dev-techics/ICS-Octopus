@@ -1,29 +1,27 @@
 import React, { useEffect } from "react";
+import type { BarkRefundModalParamsType } from "../../types/type";
 
-
-const BarkRefundSuccessModal: React.FC = () => {
+const BarkRefundSuccessModal: React.FC<BarkRefundModalParamsType> = ({
+  title,
+  description,
+  redirect = false, // default to false
+}) => {
   const caseId = sessionStorage.getItem("case_id");
-  const autoCloseSeconds = 3;
+  const autoCloseSeconds = 1;
+  const REDIRECT_URL = `https://cms.icslegal.com/add_edit_case.php?caseid=${caseId}`;
+  const ALERT_MESSAGE = 'Case ID not found in session.';
 
   // redirect crm method
   const redirectToCRM = () => {
-    if (caseId) { 
-      window.location.href = `https://cms.icslegal.com/add_edit_case.php?caseid=${caseId}`;
-    } else {
-      alert("Case ID not found in session.");
-    }
+    caseId ? window.location.href = REDIRECT_URL : alert(ALERT_MESSAGE);
   };
 
-  // handle auto redirect
+  // handle auto redirect only if redirect=true
   useEffect(() => {
-    if (!caseId) return;
-
-    // Auto-redirect after specified seconds
+    if (!redirect || !caseId) return;
     const timer = setTimeout(redirectToCRM, autoCloseSeconds * 1000);
-
-    // Cleanup on unmount or dependency change
     return () => clearTimeout(timer);
-  }, [caseId, autoCloseSeconds]);
+  }, [redirect, caseId, autoCloseSeconds]);
 
   return (
     <div
@@ -48,10 +46,8 @@ const BarkRefundSuccessModal: React.FC = () => {
           boxShadow: "0 10px 25px rgba(0,0,0,0.2)",
         }}
       >
-        <h2 style={{ marginBottom: "15px" }}>Refund Submitted</h2>
-        <p style={{ marginBottom: "25px", color: "#333" }}>
-          Your refund request has been successfully processed and submitted.
-        </p>
+        <h2 style={{ marginBottom: "15px" }}>{title}</h2>
+        <p style={{ marginBottom: "25px", color: "#333" }}>{description}</p>
         <button
           onClick={redirectToCRM}
           style={{
